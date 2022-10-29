@@ -1,0 +1,5 @@
+uvicorn[standart]
+fastapi
+aiofiles
+python-multipart
+pip==22.3
