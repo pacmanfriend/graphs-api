@@ -1,12 +1,36 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+from algorithm import finding_shortest_path
 
 app = FastAPI(title="GraphsApi")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+class StartData(BaseModel):
+    matrix: list[list[int]]
+    start: int
+    end: int
+    vertex_count: int
+    show_detail_info: bool
+
 
 @app.post('/start')
-async def start():
-    pass
+async def start(data: StartData):
+    res = finding_shortest_path(data.matrix, data.start - 1, data.end - 1)
+
+    a = 0
+
+    return data
 
 
 if __name__ == '__main__':
