@@ -1,5 +1,5 @@
 uvicorn[standart]
-fastapi
+fastapi==0.87.0
 aiofiles
 python-multipart
-pip==22.3
+pip==22.3.1
