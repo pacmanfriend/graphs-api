@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from algorithm import finding_shortest_path
+from algorithm import Graph, Result
 
 app = FastAPI(title="GraphsApi")
 
@@ -26,11 +26,9 @@ class StartData(BaseModel):
 
 @app.post('/start')
 async def start(data: StartData):
-    res = finding_shortest_path(data.matrix, data.start - 1, data.end - 1)
+    res: Result = Graph(data.matrix, data.start - 1, data.end - 1).find_shortest_path()
 
-    a = 0
-
-    return data
+    return res
 
 
 if __name__ == '__main__':
